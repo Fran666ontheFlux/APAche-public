@@ -1,0 +1,7 @@
+# Dependances de l'outil (installees par « Ouvrir memoire.bat » quand cette liste change).
+# pypdf : lire le texte des PDF page par page, et leur numerotation. Pur Python,
+# sans compilation ni logiciel a installer a cote. Les .docx sont lus sans dependance.
+pypdf>=5,<7
+# pypdfium2 : transformer les pages d'un PDF scanne en images pour l'OCR (Tesseract,
+# installe a part). Un seul paquet, moteur PDF de Chrome ; sans lui, tout le reste marche.
+pypdfium2>=4,<6

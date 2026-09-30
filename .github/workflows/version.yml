@@ -1,0 +1,55 @@
+# Nouvelle version : pousser une étiquette « v1.2.0 » (git tag v1.2.0 ; git push origin v1.2.0).
+# GitHub relance tous les tests, fabrique APAche.exe et publie APAche-v1.2.0-windows.zip
+# dans « Releases », prêt à télécharger. Gratuit pour un dépôt public.
+name: Version Windows
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:  # ou à la main, depuis l'onglet Actions (sans publication)
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Dépendances
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt -r requirements-dev.txt
+
+      - name: Tests
+        run: python -m pytest -q
+
+      - name: Fabriquer APAche.exe
+        run: python -m PyInstaller --noconfirm --clean APAche.spec
+
+      - name: Zipper
+        shell: pwsh
+        run: |
+          $nom = if ($env:GITHUB_REF_TYPE -eq "tag") { "APAche-$env:GITHUB_REF_NAME-windows" } else { "APAche-essai-windows" }
+          Copy-Item LICENSE, README.md dist/APAche/
+          Compress-Archive -Path dist/APAche -DestinationPath "$nom.zip"
+          "ZIP=$nom.zip" | Out-File -FilePath $env:GITHUB_ENV -Append
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: APAche-windows
+          path: ${{ env.ZIP }}
+
+      - name: Publier la version
+        if: github.ref_type == 'tag'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ env.ZIP }}
+          body: |
+            **Télécharger :** `${{ env.ZIP }}` ci-dessous, puis décompresser et lancer `APAche.exe`
+            (voir le mode d'emploi dans le README). Rien d'autre à installer ; Tesseract seulement pour l'OCR.

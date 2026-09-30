@@ -1,0 +1,5 @@
+# Outils de développement uniquement : l'outil lui-même n'en a pas besoin.
+# pytest : lancer toute la batterie de tests d'un coup (python -m pytest).
+pytest
+# PyInstaller : fabriquer APAche.exe (voir APAche.spec et .github/workflows/version.yml).
+pyinstaller

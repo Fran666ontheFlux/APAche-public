@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>APAche</title>
+  <link rel="icon" href="icone.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script>
+    // Appliqué avant l'affichage pour éviter un flash de la mauvaise couleur.
+    try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+  <div id="toasts" aria-live="polite"></div>
+  <script src="sources.js"></script>
+  <script src="grille.js"></script>
+  <script src="plan.js"></script>
+  <script src="bibliographie.js"></script>
+  <script src="import_biblio.js"></script>
+  <script src="import_dossiers.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

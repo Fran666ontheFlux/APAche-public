@@ -1,0 +1,25 @@
+# Environnement virtuel : propre à chaque PC, jamais partagé.
+.venv/
+venv/
+
+# Réglages locaux (chemin du dossier de données propre à chaque PC).
+reglages_locaux.json
+
+# Données personnelles : elles vivent dans le dossier de données, jamais dans le dépôt.
+memoire.json
+verrou.json
+sauvegardes/
+fichiers/
+index/
+*.docx
+*.pdf
+
+# Fichiers générés (dont APAche.exe : build/ et dist/, voir APAche.spec)
+__pycache__/
+*.pyc
+.pytest_cache/
+build/
+dist/
+
+# PyCharm
+.idea/

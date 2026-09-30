@@ -1,0 +1,3 @@
+# Fins de ligne cohérentes entre les deux PC ; cmd.exe exige CRLF pour les .bat.
+* text=auto eol=lf
+*.bat text eol=crlf
